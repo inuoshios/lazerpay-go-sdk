@@ -33,7 +33,7 @@ import (
     "os"
 
     "github.com/joho/godotenv"
-	"github.com/milinches/lazerpay-go-sdk"
+"github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
@@ -69,7 +69,7 @@ import (
     "os"
 
     "github.com/joho/godotenv"
-	"github.com/milinches/lazerpay-go-sdk"
+"github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
@@ -103,7 +103,7 @@ import (
     "os"
 
     "github.com/joho/godotenv"
-	"github.com/milinches/lazerpay-go-sdk"
+"github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
@@ -137,7 +137,7 @@ import (
     "os"
 
     "github.com/joho/godotenv"
-	"github.com/milinches/lazerpay-go-sdk"
+"github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
