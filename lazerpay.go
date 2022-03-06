@@ -16,20 +16,21 @@ var (
 	initTrnx   = "https://api.lazerpay.engineering/api/v1"
 	PUBLIC_KEY = os.Getenv("PUBLIC_KEY")
 	SECRET_KEY = os.Getenv("SECRET_KEY")
+	CLIENT = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 )
 
-func LazerpayClient(publicKey, secretKey string) (http.Header, error) {
+func LazerpayClient(publicKey, secretKey string) http.Header {
 	return http.Header{
 		"Content-Type":  []string{"application/json"},
 		"Authorization": []string{secretKey},
 		"x-api-key":     []string{publicKey},
-	}, nil
+	}
 }
 
 // InitTransaction function helps initialize new transactions.
 //
 // 		lazerpay.InitTransaction("4tytytreytrey65756u5u66", "1000", "Abdulfatai Suleiman", "staticdev20046@gmail.com", "USD", "DAI", true)
-func InitTransaction(reference, amount, customerName, customerEmail, currencyType, coin string, acceptPartialPayment bool) (string, error) {
+func InitTransaction(clientHeader http.Header, reference, amount, customerName, customerEmail, currencyType, coin string, acceptPartialPayment bool) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -51,7 +52,7 @@ func InitTransaction(reference, amount, customerName, customerEmail, currencyTyp
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header = clientHeader
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -73,7 +74,7 @@ func InitTransaction(reference, amount, customerName, customerEmail, currencyTyp
 // VerifyTransactions helps verify a payment.
 //
 //		lazerpay.VerifyTransaction("0xf2345527195C3bdc6C5f07576a3C860281926841")
-func VerifyTransaction(reference string) (string, error) {
+func VerifyTransaction(clientHeader http.Header, reference string) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -85,7 +86,7 @@ func VerifyTransaction(reference string) (string, error) {
 		log.Println("error making a new request")
 	}
 
-	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header = clientHeader
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -107,7 +108,7 @@ func VerifyTransaction(reference string) (string, error) {
 // GetAcceptedCoins helps retrive all accepted coins.
 //
 //		lazerpay.GetAcceptedCoins()
-func GetAcceptedCoins() (string, error) {
+func GetAcceptedCoins(clientHeader http.Header) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -119,7 +120,7 @@ func GetAcceptedCoins() (string, error) {
 		log.Println("error making a new request")
 	}
 
-	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header = clientHeader
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -145,7 +146,7 @@ func GetAcceptedCoins() (string, error) {
 //  blockchain must be a string, and blockchain must not be empty.
 //		
 //  lazerpay.Transfer(1, "0xF378c952d5266eF8e1783521a1395Fe40cDCe55B", "USDT", "Binance Smart Chain")
-func Transfer(amount uint, recipient, coin, blockchain string) (string, error) {
+func Transfer(clientHeader http.Header, amount uint, recipient, coin, blockchain string) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -165,7 +166,7 @@ func Transfer(amount uint, recipient, coin, blockchain string) (string, error) {
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header = clientHeader
 	if err != nil {
 		log.Println(err.Error())
 	}
