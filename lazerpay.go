@@ -7,15 +7,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/joho/godotenv"
 )
 
 var (
-	initTrnx   = "https://api.lazerpay.engineering/api/v1"
-	PUBLIC_KEY = os.Getenv("PUBLIC_KEY")
-	SECRET_KEY = os.Getenv("SECRET_KEY")
+	initTrnx = "https://api.lazerpay.engineering/api/v1"
 )
 
 func LazerpayClient(publicKey, secretKey string) (http.Header, error) {
@@ -143,7 +140,7 @@ func GetAcceptedCoins(clientHeader http.Header) (string, error) {
 //  recipient should not be empty, and also the recipient must be an Ethereum address.
 //  coin must be a string, coin should not be empty.
 //  blockchain must be a string, and blockchain must not be empty.
-//		
+//
 //  lazerpay.Transfer(1, "0xF378c952d5266eF8e1783521a1395Fe40cDCe55B", "USDT", "Binance Smart Chain")
 func Transfer(clientHeader http.Header, amount uint, recipient, coin, blockchain string) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
