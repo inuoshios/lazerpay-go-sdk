@@ -16,15 +16,14 @@ var (
 	initTrnx   = "https://api.lazerpay.engineering/api/v1"
 	PUBLIC_KEY = os.Getenv("PUBLIC_KEY")
 	SECRET_KEY = os.Getenv("SECRET_KEY")
-	CLIENT = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 )
 
-func LazerpayClient(publicKey, secretKey string) http.Header {
+func LazerpayClient(publicKey, secretKey string) (http.Header, error) {
 	return http.Header{
 		"Content-Type":  []string{"application/json"},
 		"Authorization": []string{secretKey},
 		"x-api-key":     []string{publicKey},
-	}
+	}, nil
 }
 
 // InitTransaction function helps initialize new transactions.
