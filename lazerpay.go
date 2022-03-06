@@ -18,18 +18,18 @@ var (
 	SECRET_KEY = os.Getenv("SECRET_KEY")
 )
 
-func LazerpayClient(publicKey, secretKey string) *http.Header {
-	return &http.Header{
+func LazerpayClient(publicKey, secretKey string) (http.Header, error) {
+	return http.Header{
 		"Content-Type":  []string{"application/json"},
 		"Authorization": []string{secretKey},
 		"x-api-key":     []string{publicKey},
-	}
+	}, nil
 }
 
 // InitTransaction function helps initialize new transactions.
 //
 // 		lazerpay.InitTransaction("4tytytreytrey65756u5u66", "1000", "Abdulfatai Suleiman", "staticdev20046@gmail.com", "USD", "DAI", true)
-func InitTransaction(reference, amount, customerName, customerEmail, currencyType, coin string, acceptPartialPayment bool) string {
+func InitTransaction(reference, amount, customerName, customerEmail, currencyType, coin string, acceptPartialPayment bool) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -51,7 +51,10 @@ func InitTransaction(reference, amount, customerName, customerEmail, currencyTyp
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	if err != nil {
+		log.Println(err.Error())
+	}
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -64,13 +67,13 @@ func InitTransaction(reference, amount, customerName, customerEmail, currencyTyp
 		log.Println(err.Error())
 	}
 
-	return string(response)
+	return string(response), nil
 }
 
 // VerifyTransactions helps verify a payment.
 //
 //		lazerpay.VerifyTransaction("0xf2345527195C3bdc6C5f07576a3C860281926841")
-func VerifyTransaction(reference string) string {
+func VerifyTransaction(reference string) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -82,7 +85,10 @@ func VerifyTransaction(reference string) string {
 		log.Println("error making a new request")
 	}
 
-	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	if err != nil {
+		log.Println(err.Error())
+	}
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -95,13 +101,13 @@ func VerifyTransaction(reference string) string {
 		log.Println(err.Error())
 	}
 
-	return string(response)
+	return string(response), nil
 }
 
 // GetAcceptedCoins helps retrive all accepted coins.
 //
 //		lazerpay.GetAcceptedCoins()
-func GetAcceptedCoins() string {
+func GetAcceptedCoins() (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -113,7 +119,10 @@ func GetAcceptedCoins() string {
 		log.Println("error making a new request")
 	}
 
-	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	if err != nil {
+		log.Println(err.Error())
+	}
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -126,7 +135,7 @@ func GetAcceptedCoins() string {
 		log.Println(err)
 	}
 
-	return string(response)
+	return string(response), nil
 }
 
 // Transfer helps send funds to another recipient.
@@ -136,7 +145,7 @@ func GetAcceptedCoins() string {
 //  blockchain must be a string, and blockchain must not be empty.
 //		
 //  lazerpay.Transfer(1, "0xF378c952d5266eF8e1783521a1395Fe40cDCe55B", "USDT", "Binance Smart Chain")
-func Transfer(amount uint, recipient, coin, blockchain string) string {
+func Transfer(amount uint, recipient, coin, blockchain string) (string, error) {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -156,7 +165,10 @@ func Transfer(amount uint, recipient, coin, blockchain string) string {
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	req.Header, err = LazerpayClient(PUBLIC_KEY, SECRET_KEY)
+	if err != nil {
+		log.Println(err.Error())
+	}
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -169,5 +181,5 @@ func Transfer(amount uint, recipient, coin, blockchain string) string {
 		log.Println(err.Error())
 	}
 
-	return string(response)
+	return string(response), nil
 }
