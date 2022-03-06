@@ -18,6 +18,14 @@ var (
 	SECRET_KEY = os.Getenv("SECRET_KEY")
 )
 
+func LazerpayClient(publicKey, secretKey string) *http.Header {
+	return &http.Header{
+		"Content-Type":  []string{"application/json"},
+		"Authorization": []string{secretKey},
+		"x-api-key":     []string{publicKey},
+	}
+}
+
 // InitTransaction function helps initialize new transactions.
 //
 // 		lazerpay.InitTransaction("4tytytreytrey65756u5u66", "1000", "Abdulfatai Suleiman", "staticdev20046@gmail.com", "USD", "DAI", true)
@@ -43,11 +51,7 @@ func InitTransaction(reference, amount, customerName, customerEmail, currencyTyp
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header = http.Header{
-		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{SECRET_KEY},
-		"x-api-key":     []string{PUBLIC_KEY},
-	}
+	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -78,11 +82,7 @@ func VerifyTransaction(reference string) string {
 		log.Println("error making a new request")
 	}
 
-	req.Header = http.Header{
-		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{SECRET_KEY},
-		"x-api-key":     []string{PUBLIC_KEY},
-	}
+	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -113,11 +113,7 @@ func GetAcceptedCoins() string {
 		log.Println("error making a new request")
 	}
 
-	req.Header = http.Header{
-		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{SECRET_KEY},
-		"x-api-key":     []string{PUBLIC_KEY},
-	}
+	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -160,11 +156,7 @@ func Transfer(amount uint, recipient, coin, blockchain string) string {
 	if err != nil {
 		log.Println("error making a new request")
 	}
-	req.Header = http.Header{
-		"Content-Type":  []string{"application/json"},
-		"Authorization": []string{SECRET_KEY},
-		"x-api-key":     []string{PUBLIC_KEY},
-	}
+	req.Header = *LazerpayClient(PUBLIC_KEY, SECRET_KEY)
 
 	res, err := client.Do(req)
 	if err != nil {
