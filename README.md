@@ -1,4 +1,4 @@
-# Lazerpay Golang SDK ⚡
+# Lazerpay Golang SDK ⚡ (WIP)
 
 ## Installation ✔️
 To install the package, use the command below.
@@ -11,12 +11,6 @@ Import the package.
 
 ```go
 import "github.com/milinches/lazerpay-go-sdk"
-```
-
-Optional, import the `godotenv` package in your code. It'll help in loading the `.env` files.
-
-```go
-import "github.com/joho/godotenv"
 ```
 
 You can also get your Test API keys, from the Lazerpay Dashboard [here](https://dashboard.lazerpay.finance/).
@@ -32,16 +26,10 @@ import (
     "log"
     "os"
 
-    "github.com/joho/godotenv"
     "github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
-    // Load the env file
-    if err := godotenv.Load(".Sample.env); err != nil {
-        log.Fatal("Error loading .env file")
-    }
-
     secretKey := os.GetEnv("SECRET_KEY")
     publicKey := os.GetEnv("PUBLIC_KEY")
 
@@ -68,16 +56,10 @@ import (
     "log"
     "os"
 
-    "github.com/joho/godotenv"
     "github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
-    // Load the env file
-    if err := godotenv.Load(".Sample.env); err != nil {
-        log.Fatal("Error loading .env file")
-    }
-
     secretKey := os.GetEnv("SECRET_KEY")
     publicKey := os.GetEnv("PUBLIC_KEY")
 
@@ -102,16 +84,10 @@ import (
     "log"
     "os"
 
-    "github.com/joho/godotenv"
     "github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
-    // Load the env file
-    if err := godotenv.Load(".Sample.env); err != nil {
-        log.Fatal("Error loading .env file")
-    }
-
     secretKey := os.GetEnv("SECRET_KEY")
     publicKey := os.GetEnv("PUBLIC_KEY")
 
@@ -136,16 +112,10 @@ import (
     "log"
     "os"
 
-    "github.com/joho/godotenv"
     "github.com/milinches/lazerpay-go-sdk"
 )
 
 func main() {
-    // Load the env file
-    if err := godotenv.Load(".Sample.env); err != nil {
-        log.Fatal("Error loading .env file")
-    }
-
     secretKey := os.GetEnv("SECRET_KEY")
     publicKey := os.GetEnv("PUBLIC_KEY")
 
