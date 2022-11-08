@@ -13,6 +13,23 @@ var (
 	initTrnx = "https://api.lazerpay.engineering/api/v1"
 )
 
+type InitializeTransaction struct {
+	Reference            string `json:"reference"`
+	Amount               string `json:"amount"`
+	CustomerName         string `json:"customer_name"`
+	CustomerEmail        string `json:"customer_email"`
+	Currency             string `json:"currency"`
+	Coin                 string `json:"coin"`
+	AcceptPartialPayment bool   `json:"accept_partial_payment"`
+}
+
+type TransferFunds struct {
+	Amount     uint   `json:"amount"`
+	Recipient  string `json:"recipient"`
+	Coin       string `json:"coin"`
+	BlockChain string `json:"blockchain"`
+}
+
 // LazerpayClient adds the necessary “http.header“
 //
 //	lazerpay.LazerpayClient(publicKey, secretKey)
@@ -28,7 +45,7 @@ func LazerpayClient(publicKey, secretKey string) (http.Header, error) {
 //
 // The “clientHeader“ is gotten from the LazerpayClient
 //
-//	lazerpay.InitTransaction(clientHeader ,"4tytytreytrey65756u5u66", "1000", "Abdulfatai Suleiman", "staticdev20046@gmail.com", "USD", "DAI", true)
+//	lazerpay.InitTransaction(clientHeader, initializeTrnx{})
 func InitTransaction(clientHeader http.Header, InitTransaction InitializeTransaction) (string, error) {
 	jsonData, _ := json.Marshal(InitTransaction)
 
@@ -148,7 +165,7 @@ func GetAcceptedCoins(clientHeader http.Header) (string, error) {
 //
 // The “clientHeader“ is gotten from the LazerpayClient
 //
-//	lazerpay.Transfer(clientHeader,1, "0xF378c952d5266eF8e1783521a1395Fe40cDCe55B", "USDT", "Binance Smart Chain")
+//	lazerpay.Transfer(clientHeader, transfer{})
 func Transfer(clientHeader http.Header, transfer TransferFunds) (string, error) {
 	jsonData, _ := json.Marshal(transfer)
 

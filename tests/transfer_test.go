@@ -1,8 +1,9 @@
 package tests
 
 import (
-	"github.com/milinches/lazerpay-go-sdk"
 	"testing"
+
+	"github.com/milinches/lazerpay-go-sdk"
 )
 
 func TestTransfer(t *testing.T) {
