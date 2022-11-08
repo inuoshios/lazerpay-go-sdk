@@ -4,13 +4,13 @@
 To install the package, use the command below.
 
 ```sh
-go get github.com/milinches/lazerpay-go-sdk
+go get github.com/inuoshios/lazerpay-go-sdk
 ```
 
 Import the package.
 
 ```go
-import "github.com/milinches/lazerpay-go-sdk"
+import "github.com/inuoshios/lazerpay-go-sdk"
 ```
 
 You can also get your Test API keys, from the Lazerpay Dashboard [here](https://dashboard.lazerpay.finance/).
@@ -26,7 +26,7 @@ import (
     "log"
     "os"
 
-    "github.com/milinches/lazerpay-go-sdk"
+    "github.com/inuoshios/lazerpay-go-sdk"
 )
 
 func main() {
@@ -56,7 +56,7 @@ import (
     "log"
     "os"
 
-    "github.com/milinches/lazerpay-go-sdk"
+    "github.com/inuoshios/lazerpay-go-sdk"
 )
 
 func main() {
@@ -84,7 +84,7 @@ import (
     "log"
     "os"
 
-    "github.com/milinches/lazerpay-go-sdk"
+    "github.com/inuoshios/lazerpay-go-sdk"
 )
 
 func main() {
@@ -112,7 +112,7 @@ import (
     "log"
     "os"
 
-    "github.com/milinches/lazerpay-go-sdk"
+    "github.com/inuoshios/lazerpay-go-sdk"
 )
 
 func main() {
