@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/milinches/lazerpay-go-sdk"
+	"github.com/inuoshios/lazerpay-go-sdk"
 )
 
 func TestGetAcceptedCoins(t *testing.T) {
